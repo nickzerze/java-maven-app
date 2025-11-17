@@ -1,4 +1,4 @@
-FROM openjdk:26-ea-jdk-oraclelinux9
+FROM openjdk:26-ea-slim-bookworm
 
 EXPOSE 8080
 
