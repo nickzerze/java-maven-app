@@ -13,7 +13,7 @@ pipeline {
             steps{
                 when {
                     expression {
-                        BRANCH_NAME == "master"
+                        BRANCH_NAME == "main"
                     }
                 }
                 script {
@@ -25,7 +25,7 @@ pipeline {
             steps{
                 when {
                     expression {
-                        BRANCH_NAME == "master"
+                        BRANCH_NAME == "main"
                     }
                 script {
                     echo "Deploying the application..."
