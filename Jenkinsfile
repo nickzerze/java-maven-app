@@ -5,14 +5,14 @@ pipeline {
             steps{
                 script {
                     echo "Testing the application..."
-                    echo "Executing pipeline for branch ${env.BRANCH_NAME}"
+                    echo "Executing pipeline for branch $BRANCH_NAME"
                 }
             }
         }
         stage("Build") {
             when {
                 expression {
-                    env.BRANCH_NAME == "main"
+                    BRANCH_NAME == "main"
                 }
             }
             steps{
@@ -25,7 +25,7 @@ pipeline {
         stage("Deploy") {
             when {
                 expression {
-                    env.BRANCH_NAME == "main"
+                    BRANCH_NAME == "main"
                 }
             }
             steps{
