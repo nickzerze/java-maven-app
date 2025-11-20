@@ -16,7 +16,6 @@ pipeline {
                 }
             }
             steps{
-
                 script {
                     echo "Building the application..."
                 }
