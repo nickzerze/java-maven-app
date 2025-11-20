@@ -10,23 +10,25 @@ pipeline {
             }
         }
         stage("Build") {
-            steps{
-                when {
-                    expression {
-                        BRANCH_NAME == "main"
-                    }
+            when {
+                expression {
+                    BRANCH_NAME == "main"
                 }
+            }
+            steps{
+
                 script {
                     echo "Building the application..."
                 }
             }
         }
         stage("Deploy") {
+            when {
+                expression {
+                    BRANCH_NAME == "main"
+                }
+            }
             steps{
-                when {
-                    expression {
-                        BRANCH_NAME == "main"
-                    }
                 script {
                     echo "Deploying the application..."
                 }
