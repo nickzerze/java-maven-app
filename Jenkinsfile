@@ -1,4 +1,4 @@
-δεφ γω
+def gv
 
 pipeline {
     agent any
