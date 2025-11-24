@@ -39,6 +39,13 @@ pipeline {
                 }
             }
         }
+        stage("Build Image and Push to DockerHub") {
+            steps {
+				script {
+                    gv.buildimage()
+                }
+            }
+        }        
         stage("Deploy") {
             steps {
                 script {
