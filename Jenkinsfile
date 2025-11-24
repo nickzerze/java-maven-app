@@ -1,38 +1,34 @@
+#!/usr/bin/env groovy
+
+def gv
+
 pipeline {
     agent any
-    stages {
-        stage("Test") {
-            steps{
-                script {
-                    echo "Testing the application..."
-                    echo "Executing pipeline for branch $BRANCH_NAME"
-                }
-            }
-        }
-        stage("Build") {
-            when {
-                expression {
-                    BRANCH_NAME == "main"
-                }
-            }
-            steps{
-                script {
-                    echo "Building the application..."
-                }
-            }
-        }
-        stage("Deploy") {
-            when {
-                expression {
-                    BRANCH_NAME == "main"
-                }
-            }
-            steps{
-                script {
-                    echo "Deploying the application..."
-                }
-            }
-        }                
+    parameters {
+        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
+        booleanParam(name: 'executeTests', defaultValue: true, description: '')
     }
-    
+    stages {
+        stage("build") {
+            steps {
+				echo 'building the application...'
+            }
+        }
+        stage("test") {
+            when {
+                expression {
+                    params.executeTests
+                }
+            }
+            steps {
+				echo 'testing the application ...'
+            }
+        }
+        stage("deploy") {
+            steps {
+				echo 'Deploying the application' 
+				echo "Deploying version ${params.VERSION}"
+            }
+        }
+    }
 }
