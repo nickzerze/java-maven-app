@@ -2,6 +2,9 @@ def gv
 
 pipeline {
     agent any
+    tools {
+        maven 'maven-3.9'
+    }
     environment {
         TEST_VERSION = '1.4.0'
     }
