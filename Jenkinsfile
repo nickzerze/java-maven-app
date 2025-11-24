@@ -1,16 +1,27 @@
+δεφ γω
+
 pipeline {
     agent any
     environment {
-        NEW_VERSION = '1.4.0'
+        TEST_VERSION = '1.4.0'
     }
     parameters {
         choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
         booleanParam(name: 'executeTests', defaultValue: true, description: '')
     }
     stages {
-        stage("Build") {
+        stage("Init") {
             steps {
-				echo 'Building the application...'
+				script {
+                    gv = load "script.groovy"
+                }
+            }
+        }        
+        stage("Build Jar") {
+            steps {
+				script {
+                    gv.buildJar()
+                }
             }
         }
         stage("Test") {
@@ -20,14 +31,16 @@ pipeline {
                 }
             }
             steps {
-				echo 'Testing the application...'
-                echo "Version testing is ${NEW_VERSION}"
+                script {
+                    gv.testApp()
+                }
             }
         }
         stage("Deploy") {
             steps {
-				echo 'Deploying the application...' 
-				echo "Deploying version ${params.VERSION}"
+                script {
+                    gv.deployApp()
+                }
             }
         }
     }
