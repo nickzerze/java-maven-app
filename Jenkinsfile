@@ -47,18 +47,19 @@ pipeline {
             }
         }        
         stage("Deploy") {
-            input {
-                message "Select the environment to deploy to"
-                ok "Done"
-                parameters {
-                    choice(name: 'ONE',choices: ['development', 'staging', 'production'],description: '')
-                    choice(name: 'TWO',choices: ['development', 'staging', 'production'],description: '')
-                }
-            }
+            // input {
+            //     message "Select the environment to deploy to"
+            //     ok "Done"
+            //     parameters {
+            //         choice(name: 'ONE',choices: ['development', 'staging', 'production'],description: '')
+            //         choice(name: 'TWO',choices: ['development', 'staging', 'production'],description: '')
+            //     }
+            // }
             steps {
                 script {
+                    env.ENV = input message: "Select the environment to deploy to", ok "Done", parameters: [choice(name:'ONE', choices: ['development', 'staging', 'production'], description: '')]
                     gv.deployApp()
-                    echo "Deploying to ${ONE} and to ${TWO}"
+                    echo "Deploying to ${ENV}"
                 }
             }
         }
