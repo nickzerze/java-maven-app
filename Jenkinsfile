@@ -20,9 +20,10 @@
 // ======= ΑΝ ΚΑΝΩ IMPORT ΤΟ JENKINS-SHARED-LIBRARY MONO ΣΕ ΑΥΤΟ ΤΟ PROJECT
 library identifier: 'jenkins-shared-library@main', retriever: modernSCM(
     [$class: 'GitSCMSource',
-    remote: 'https://github.com/nickzerze/jenkins-shared-library.git'
-    credentialsId: 'github-credentials'])
-
+    remote: 'https://github.com/nickzerze/jenkins-shared-library.git',
+    credentialsId: 'github-credentials'
+    ]
+)
 
 
 pipeline {
