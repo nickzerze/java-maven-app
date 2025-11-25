@@ -21,7 +21,7 @@ pipeline {
         stage("init") {
             steps {
                 script {
-                    gv = load "script.groovy"
+                    //gv = load "script.groovy"
                 }
             }
         }
@@ -42,7 +42,8 @@ pipeline {
         stage("deploy") {
             steps {
                 script {
-                    gv.deployApp()
+                    //gv.deployApp()
+                    echo 'deploying the application...'
                 }
             }
         }
