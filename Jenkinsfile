@@ -2,14 +2,14 @@
 //---θέλουμε το groovy Line για να γίνει detect το groovy script---
 
 //Αν δεν βάλω το definition (def gv)
-//@Library('jenkins-shared-library')_   -> αν δεν έχω το _ τότε πρέπει να έχω αμέσως μετά το def gv
+//@Library('jenkins-shared-library') _   -> αν δεν έχω το _ τότε πρέπει να έχω αμέσως μετά το def gv
 
-//@Library('jenkins-shared-library')
-//def gv
+@Library('jenkins-shared-library')
+def gv
 
 //Αν θέλω ένα συγκεκριμένο tag
-@Library('jenkins-shared-library@v3.2') _
-def gv
+//@Library('jenkins-shared-library@v3.2') _
+//def gv
 
 
 pipeline {
@@ -35,7 +35,7 @@ pipeline {
         stage("build and push image") {
             steps {
                 script {
-                    buildImage()
+                    buildImage 'malware4/java-maven-app:jma-3.2.1'
                 }
             }
         }
