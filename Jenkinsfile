@@ -24,7 +24,7 @@ library identifier: 'jenkins-shared-library@main', retriever: modernSCM(
     credentialsId: 'github-credentials'
     ]
 )
-
+def gv
 
 pipeline {
     agent any
