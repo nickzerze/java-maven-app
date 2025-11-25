@@ -20,9 +20,9 @@ pipeline {
     stages {
         stage("init") {
             steps {
-                script {
+                //script {
                     //gv = load "script.groovy"
-                }
+                //}
             }
         }
         stage("build jar") {
@@ -41,10 +41,11 @@ pipeline {
         }
         stage("deploy") {
             steps {
-                script {
+                echo 'deploying the application...'
+                //script {
                     //gv.deployApp()
-                    echo 'deploying the application...'
-                }
+                    
+                //}
             }
         }
     }
