@@ -9,7 +9,7 @@
 
 //Αν θέλω ένα συγκεκριμένο tag
 @Library('jenkins-shared-library@v3.2') _
-def gv
+//def gv
 
 
 pipeline {
