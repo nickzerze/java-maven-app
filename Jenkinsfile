@@ -9,7 +9,7 @@
 
 //Αν θέλω ένα συγκεκριμένο tag
 @Library('jenkins-shared-library@v3.2') _
-//def gv
+def gv
 
 
 pipeline {
@@ -20,10 +20,9 @@ pipeline {
     stages {
         stage("init") {
             steps {
-                echo 'init the application...'
-                //script {
-                    //gv = load "script.groovy"
-                //}
+                script {
+                    gv = load "script.groovy"
+                }
             }
         }
         stage("build jar") {
@@ -42,11 +41,10 @@ pipeline {
         }
         stage("deploy") {
             steps {
-                echo 'deploying the application...'
-                //script {
-                    //gv.deployApp()
+                script {
+                    gv.deployApp()
                     
-                //}
+                }
             }
         }
     }
