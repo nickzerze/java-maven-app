@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-alpine
+FROM openjdk:26-ea-slim-bookworm
 
 EXPOSE 8080
 
