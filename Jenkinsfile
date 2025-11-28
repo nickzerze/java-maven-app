@@ -49,9 +49,9 @@ pipeline {
         stage("build and push image") {
             steps {
                 script {
-                    buildImage 'malware4/java-maven-app:jma-3.2.3'
+                    buildImage 'malware4/java-maven-app:jma-3.2.4'
                     dockerLogin()
-                    dockerPush 'malware4/java-maven-app:jma-3.2.3'
+                    dockerPush 'malware4/java-maven-app:jma-3.2.4'
                 }
             }
         }
