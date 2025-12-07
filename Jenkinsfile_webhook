@@ -1,0 +1,58 @@
+def gv
+
+pipeline {
+    agent any
+    tools {
+        maven 'maven-3.9'
+    }
+    environment {
+        TEST_VERSION = '1.4.0'
+    }
+    stages {
+        stage("Init") {
+            steps {
+				script {
+                    gv = load "script.groovy"
+                }
+            }
+        }        
+        stage("Build Jar") {
+            steps {
+				script {
+                    gv.buildJar()
+                }
+            }
+        }
+        stage("Test") {
+            steps {
+                script {
+                    gv.testApp()
+                }
+            }
+        }
+        stage("Build Image and Push to DockerHub") {
+            steps {
+				script {
+                    gv.buildimage()
+                }
+            }
+        }        
+        stage("Deploy") {
+            // input {
+            //     message "Select the environment to deploy to"
+            //     ok "Done"
+            //     parameters {
+            //         choice(name: 'ONE',choices: ['development', 'staging', 'production'],description: '')
+            //         choice(name: 'TWO',choices: ['development', 'staging', 'production'],description: '')
+            //     }
+            // }
+            steps {
+                script {
+                    env.ENV = input message: "Select the environment to deploy to", ok: "Done", parameters: [choice(name:'ONE', choices: ['development', 'staging', 'production'], description: '')]
+                    gv.deployApp()
+                    echo "Deploying to ${ENV}"
+                }
+            }
+        }
+    }
+}
