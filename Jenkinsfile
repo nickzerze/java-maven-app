@@ -56,6 +56,12 @@ pipeline {
 						sh 'git status'
 						sh 'git branch'
 						sh 'git config --list'
+						sh '''
+git config --global --unset credential.helper || true
+git config --system --unset credential.helper || true
+git config --unset credential.helper || true
+'''
+
                         sh ('git remote set-url origin https://${GIT_USER}:${GIT_PASS}@github.com/nickzerze/java-maven-app.git')
 
                         sh 'git add .'
