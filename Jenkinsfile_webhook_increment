@@ -6,6 +6,29 @@ pipeline {
         maven 'maven-3.9'
     }
     stages {
+	
+	stage('Checkout') {
+  steps {
+    checkout scm
+  }
+}
+
+stage('Guard: ignore Jenkins commits') {
+  steps {
+    script {
+      def msg   = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
+      def email = sh(script: 'git log -1 --pretty=%ae', returnStdout: true).trim().toLowerCase()
+
+      if (msg.contains('[skip ci]') || msg.contains('[ci skip]') || email == 'jenkins@example.com') {
+        echo "Skipping build (Jenkins-generated commit detected). Message='${msg}', email='${email}'"
+        catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
+          error('Skip CI')
+        }
+      }
+    }
+  }
+}
+
         stage('increment version') {
             steps {
                 script {
@@ -49,14 +72,14 @@ pipeline {
         stage('commit version update') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    withCredentials([usernamePassword(credentialsId: 'github-groovy', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         // git config here for the first time run
                         sh 'git config --global user.email "jenkins@example.com"'
                         sh 'git config --global user.name "jenkins"'
 
                         sh "git remote set-url origin https://${USER}:${PASS}@github.com/nickzerze/java-maven-app.git"
                         sh 'git add .'
-                        sh 'git commit -m "ci: version bump"'
+                        sh 'git commit -m "ci: version bump [skip ci]" || echo "Nothing to commit"'
                         sh 'git push origin HEAD:jenkins-jobs'
                     }
                 }
