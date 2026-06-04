@@ -3,7 +3,8 @@
 pipeline {
     agent {
         node {
-            customWorkspace '/var/jenkins_home/workspace/java-maven-app-branch-jenkins-jobs-workspace'
+            label 'built-in'
+            customWorkspace '/var/jenkins_home/workspace/java-maven-app'
         }
     }
 
