@@ -1,7 +1,12 @@
 #!/usr/bin/env groovy
 
 pipeline {
-    agent any
+    agent {
+        node {
+            customWorkspace '/var/jenkins_home/workspace/java-maven-app-branch-jenkins-jobs-workspace'
+        }
+    }
+
     tools {
         maven 'maven-3.9'
     }
