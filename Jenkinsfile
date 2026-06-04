@@ -39,7 +39,7 @@ pipeline {
                     echo "building the docker image..."
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh "docker build -t malware4/java-maven-app:${IMAGE_NAME} ."
-                        sh '''echo "$PASS" | docker login -u "$USER" --password-stdin'''
+                        sh '''echo "${PASS}" | docker login -u "${USER}" --password-stdin'''
                         sh "docker push malware4/java-maven-app:${IMAGE_NAME}"
                     }
                 }
@@ -63,7 +63,7 @@ pipeline {
 						sh 'git branch'
 						sh 'git config --list'
 						
-                        sh '''git remote set-url origin https://"$GIT_USER":"$GIT_PASS"@github.com/nickzerze/java-maven-app.git'''
+                        sh '''git remote set-url origin https://"${GIT_USER}":"${GIT_PASS}"@github.com/nickzerze/java-maven-app.git'''
 
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
